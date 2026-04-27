@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Green - Digital Sustainability Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981; 
+            --primary-dark: #059669;
+            --dark: #0f172a; 
+            --slate: #475569;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Smooth Scroll Setup */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Sora', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo-container img {
+            height: 35px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 10%;
+            background: radial-gradient(circle at top right, #dcfce7 0%, #ffffff 50%);
+            scroll-margin-top: 100px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--slate);
+            max-width: 750px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: var(--dark);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.3);
+        }
+
+        /* --- Global Section Style --- */
+        section {
+            padding: 8rem 8% 5rem;
+            scroll-margin-top: 80px; 
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--slate);
+            font-size: 1.1rem;
+        }
+
+        /* --- Climate Insights (Article) --- */
+        .article-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .article-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--slate);
+            text-align: justify;
+        }
+
+        .article-text h3 {
+            margin: 2rem 0 1rem;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+        }
+
+        .article-text ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .article-text ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--slate);
+        }
+
+        .article-text ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .source-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .source-box a {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .source-box a:hover {
+            text-decoration: underline;
+        }
+
+        .video-wrapper {
+            position: sticky;
+            top: 120px;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* --- Dashboard CTA Section --- */
+        .dashboard-cta {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 8%;
+            border-radius: 0;
+            margin: 4rem 0;
+        }
+
+        .dashboard-cta h2 { font-size: 2.2rem; margin-bottom: 1.5rem; }
+        .dashboard-cta p { 
+            color: #cbd5e1; 
+            max-width: 700px; 
+            margin: 0 auto 2.5rem; 
+            font-size: 1.1rem;
+        }
+
+        .btn-outline {
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* --- Sustainability Programs (Replacement for Services) --- */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            padding: 3.5rem 2.5rem;
+            background: var(--white);
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-12px);
+            box-shadow: var(--shadow);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .card p {
+            color: var(--slate);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 5rem 8%;
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+        }
+
+        footer p { margin-bottom: 1rem; }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .article-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .video-wrapper {
+                position: relative;
+                top: 0;
+            }
+            section { padding: 5rem 5%; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; } 
+            .hero h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo website1.png') }}" alt="Go Green Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#programs">Aksi Nyata</a></li>
+            <li><a href="/climatology">Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>Inovasi Digital untuk <br><span style="color: var(--primary);">Bumi yang Lestari</span></h1>
+        <p>Bersama Go Green, kami mengintegrasikan teknologi terkini untuk membantu Anda memahami dan menghadapi tantangan perubahan iklim melalui data dan aksi nyata.</p>
+        <a href="#insights" class="btn-primary">Pelajari Krisis Iklim</a>
+    </header>
+
+    <section id="insights">
+        <div class="section-title">
+            <h2>Krisis Iklim Global</h2>
+            <p>Memahami tantangan hari ini untuk melindungi generasi esok.</p>
+        </div>
+
+        <div class="article-container">
+            <div class="article-text">
+                <p>Perubahan iklim bukan lagi sekadar prediksi ilmiah untuk masa depan; ini adalah realitas yang kita hadapi saat ini. Sejak revolusi industri, aktivitas manusia—terutama pembakaran bahan bakar fosil dan penggundulan hutan—telah melepaskan miliaran ton gas rumah kaca ke atmosfer.</p>
+                
+                
+
+
+
+
+                <h3>Mekanisme Efek Rumah Kaca</h3>
+                <p>Gas-gas seperti Karbon Dioksida (CO2) dan Metana memerangkap panas matahari di atmosfer Bumi, menyebabkan kenaikan suhu rata-rata global. Hal ini memicu mencairnya es di kutub dan ekspansi termal air laut.</p>
+
+                <h3>Dampak Spesifik di Indonesia</h3>
+                <p>Sebagai negara kepulauan, Indonesia sangat rentan. Fenomena yang kini sering kita saksikan meliputi:</p>
+                <ul>
+                    <li><strong>Tenggelamnya Pesisir:</strong> Kenaikan air laut mengancam kota-kota besar seperti Jakarta dan Semarang.</li>
+                    <li><strong>Ekstrimitas Cuaca:</strong> Siklon tropis dan pola hujan yang tidak menentu mengganggu sektor pertanian di pedesaan.</li>
+                    <li><strong>Kerusakan Terumbu Karang:</strong> Pemanasan suhu laut menyebabkan pemutihan karang (bleaching) yang merusak ekosistem laut kita.</li>
+                </ul>
+
+                <h3>Solusi Berbasis Teknologi</h3>
+                <p>Kami percaya bahwa teknologi adalah kunci. Melalui pemantauan data iklim yang akurat, pengembangan energi terbarukan, dan digitalisasi sistem pengelolaan sampah, kita dapat menekan laju kenaikan suhu global di bawah 1.5°C.</p>
+
+                <div class="source-box">
+                    <strong>Sumber Referensi Resmi:</strong><br>
+                    Data diolah dari laporan terbaru <a href="https://climate.nasa.gov/" target="_blank">NASA Global Climate Change</a> dan <a href="https://www.un.org/id/climatechange" target="_blank">United Nations (PBB) Indonesia</a>.
+                </div>
+            </div>
+
+            <div class="article-video">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/G4H1N_yXBiA" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-cta">
+        <h2>Lihat Data Iklim Secara Langsung</h2>
+        <p>Akses dashboard interaktif kami untuk melihat statistik suhu global, konsentrasi emisi CO2, dan perubahan tutupan lahan di Indonesia secara real-time.</p>
+        <a href="/climatology" class="btn-primary" style="background: var(--primary);">Buka Dashboard Interaktif</a>
+    </section>
+
+    <section id="programs" style="background-color: var(--light);">
+        <div class="section-title">
+            <h2>Aksi Keberlanjutan</h2>
+            <p>Jadilah bagian dari solusi melalui program-program yang kami kembangkan.</p>
+        </div>
+        <div class="programs-grid">
+            <div class="card">
+                <span class="card-icon">🌱</span>
+                <h3>Adopsi Pohon</h3>
+                <p>Mendukung restorasi hutan tropis Indonesia dengan mengadopsi bibit pohon. Anda dapat memantau pertumbuhannya melalui koordinat GPS.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3>Kalkulator Karbon</h3>
+                <p>Hitung jejak karbon harian Anda dan dapatkan rekomendasi langkah praktis untuk mengurangi emisi dari gaya hidup Anda.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🌍</span>
+                <h3>Relawan Digital</h3>
+                <p>Gunakan keahlian teknologi Anda untuk membantu kami memetakan daerah rawan bencana atau mengembangkan aplikasi ramah lingkungan.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Go Green Indonesia. Member of Global Sustainability Initiative.</p>
+        <div style="font-size: 0.85rem;">
+            Dibangun dengan misi kesadaran lingkungan untuk masa depan digital.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll script
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

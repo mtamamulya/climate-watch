@@ -1,0 +1,21 @@
+
+/* CSS DEFAULT */
+body { transition: background-color 0.5s ease; color: #333; }
+.card-weather { margin-top: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: none; border-radius: 15px; }
+
+/* CSS DINAMIS (Berdasarkan Cuaca) */
+body.bg-cerah   { background: linear-gradient(to bottom right, #4facfe, #00f2fe); } /* Biru Langit */
+body.bg-hujan   { background: linear-gradient(to bottom right, #373b44, #4286f4); color: white; } /* Gelap Hujan */
+body.bg-mendung { background: linear-gradient(to bottom right, #bdc3c7, #2c3e50); } /* Abu-abu */
+body.bg-panas   { background: linear-gradient(to bottom right, #ff9966, #ff5e62); } /* Oranye Panas */
+
+/* Agar teks tetap terbaca saat background gelap */
+body.bg-hujan .card-weather, body.bg-mendung .card-weather {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.main_logo {
+    width: 210px;  /* Anda bisa mengganti angka ini sesuai keinginan */
+    height: 20px;  /* Sangat penting agar logo tidak terlihat gepeng/penyok */
+    display: block; /* Menghilangkan celah kecil di bawah gambar (opsional) */
+}

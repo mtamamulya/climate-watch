@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cuaca - Sistem Pantau Pantura</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --klhk-green: #1b4d3e;
+            --klhk-gold: #c5a059;
+            --overlay: rgba(255, 255, 255, 0.92);
+        }
+
+        body { 
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.5s ease; 
+            min-height: 100vh;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        /* --- CSS Dinamis Background --- */
+        body.bg-cerah   { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1444333509404-84ca7d73010c?auto=format&fit=crop&w=1350&q=80'); } 
+        body.bg-hujan   { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1350&q=80'); } 
+        body.bg-mendung { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1350&q=80'); } 
+        body.bg-panas   { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1504370805625-d32c54b16100?auto=format&fit=crop&w=1350&q=80'); } 
+
+        .navbar-custom {
+            background-color: var(--klhk-green);
+            border-bottom: 4px solid var(--klhk-gold);
+        }
+
+        .card-weather { 
+            border: none; 
+            border-radius: 15px; 
+            background-color: var(--overlay) !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-header-green {
+            background: var(--klhk-green);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 3px solid var(--klhk-gold);
+        }
+
+        .temp-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--klhk-green);
+            margin: 0;
+        }
+
+        .status-box { 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-weight: 600;
+            margin: 20px 0;
+            border: 1px solid transparent;
+        }
+        
+        /* Alert Style Berdasarkan Status */
+        .status-waspada { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+        .status-normal { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .status-bahaya { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+
+        .search-input {
+            border-radius: 25px 0 0 25px;
+            border: 2px solid var(--klhk-green);
+        }
+        .search-btn {
+            border-radius: 0 25px 25px 0;
+            background: var(--klhk-green);
+            color: white;
+            border: 2px solid var(--klhk-green);
+            padding: 0 25px;
+        }
+
+        .btn-back {
+            color: var(--klhk-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-back:hover { color: var(--klhk-gold); }
+    </style>
+</head>
+<body class="{{ data.bg_class if data else 'bg-cerah' }}">
+
+<nav class="navbar navbar-custom mb-5 shadow">
+    <div class="container">
+        <a class="navbar-brand text-white fw-bold" href="/">
+            <i class="fas fa-leaf me-2 text-warning"></i> SISTEM INFORMASI IKLIM GO-GREEN
+        </a>
+    </div>
+</nav>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            
+            <form method="POST" class="input-group mb-4 shadow-sm">
+                <input type="text" name="kota" class="form-control form-control-lg search-input" placeholder="Masukkan Nama Kota (Pati, Semarang, dll)..." required>
+                <button type="submit" class="btn search-btn"><i class="fas fa-search"></i> Pantau</button>
+            </form>
+
+            <div class="card card-weather">
+                <div class="card-header-green">
+                    <h5 class="mb-0">DATA KLIMATOLOGI REAL-TIME</h5>
+                </div>
+                
+                <div class="card-body p-4">
+                    {% if data %}
+                        <div class="text-center">
+                            <h3 class="fw-bold mb-1">{{ data.kota }}</h3>
+                            <p class="text-muted small mb-3"><i class="far fa-clock"></i> Pembaruan: {{ data.waktu }}</p>
+                            
+                            <div class="d-flex justify-content-center align-items: center mb-2">
+                                <img src="https://openweathermap.org/img/wn/{{ data.icon }}@4x.png" alt="Cuaca" width="100">
+                                <h1 class="temp-display">{{ data.suhu }}°C</h1>
+                            </div>
+                            
+                            <h5 class="text-capitalize text-success fw-bold mb-4">{{ data.deskripsi }}</h5>
+                            
+                            <div class="row g-3 mb-4">
+                                <div class="col-6">
+                                    <div class="p-3 border rounded bg-light">
+                                        <small class="text-muted d-block">KELEMBAPAN</small>
+                                        <span class="h5 fw-bold"><i class="fas fa-tint text-primary"></i> {{ data.kelembapan }}%</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border rounded bg-light">
+                                        <small class="text-muted d-block">KEC. ANGIN</small>
+                                        <span class="h5 fw-bold"><i class="fas fa-wind text-info"></i> {{ data.angin }} m/s</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="status-box shadow-sm 
+                                {% if 'WASPADA' in data.status or 'PANAS' in data.status %} status-waspada 
+                                {% elif 'BAHAYA' in data.status %} status-bahaya
+                                {% else %} status-normal {% endif %}">
+                                <div class="h6 mb-1"><i class="fas fa-info-circle"></i> STATUS: {{ data.status }}</div>
+                                <p class="small mb-0">{{ data.pesan }}</p>
+                            </div>
+
+                            <div class="alert alert-dark text-start border-0 shadow-sm mb-4">
+                                <strong class="text-warning"><i class="fas fa-lightbulb"></i> Rekomendasi Mitigasi:</strong><br>
+                                <span class="small">{{ data.rekomendasi }}</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="/" class="btn-back">
+                                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda Utama
+                                </a>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-cloud-sun-rain fa-4x text-muted mb-3"></i>
+                            <h5 class="text-muted">Data Belum Tersedia</h5>
+                            <p class="small text-muted">Silakan masukkan nama kota di kolom pencarian di atas untuk mulai memantau.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="text-center mt-4 text-white">
+                <small style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+                    Sumber Data: OpenWeather API & Sistem Analisis Resiko Polines
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
